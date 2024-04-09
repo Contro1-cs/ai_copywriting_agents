@@ -1,6 +1,6 @@
 import requests
 from textwrap import dedent
-from agents import Agent
+from blog_paragraph.agents import Agent
 from paragraph import pragraph_style
 
 __research_expert = {
@@ -24,7 +24,7 @@ __copywriting_expert = {
     "background_story": "You are a copywriting expert. You have written over 10,000 blogs and you know everything about writing a good blog. You are a world-famous writer for your blogs. I have hired you to write me a single paragraph for my blog, and I am paying $10,000 for it. You promised me that you will provide super high-quality paragraph.",
     "query": "I have already hired a research expert and topic expert  to ease a few things for you.Use the following information to craft a perfect blog for me. I am providing you with a proper structure for the blog.",
     "tips": "You can use the following tips to improve your service: 1. Do NOT make facts and information of your own. 2. Only use information that is given to you by the topic expert. 3. The blog should not sound robotic. The blog should sound human and natural. It's also preferable to explain complex terms in layman's language. 4. Craft the content for better user engagement. 5. The language of the blog should be neither too complex nor too simple.",
-    "output_type": "Use your decades of experience to write a perfect paragraph for me. This paragraph is going to be published in a world-class magazine, so the blog should be up to the standards. I just want you to return me a paragraph that is written by you."
+    "output_type": "I just want you to return me a paragraph that is written by you that follows the format that I've told you before. For complex terms try to explain it in simple language while maintaining the actual words."
 }
 
 
@@ -51,11 +51,10 @@ def main():
     #Agents
     research_expert = Agent(__research_expert['name'], __research_expert["background_story"], __research_expert["query"] + user_input, __research_expert["tips"], __research_expert["output_type"])
     topic_expert = Agent(__topic_expert['name'], __topic_expert["background_story"], __topic_expert["query"] + research_expert, __topic_expert["tips"], __topic_expert["output_type"])
-    copywriting_expert = Agent(__copywriting_expert['name'], __copywriting_expert["background_story"], __copywriting_expert["query"] + topic_expert, 'You can include any of these topics for the contents of the paragraph' + writing_format + __copywriting_expert["tips"], __copywriting_expert["output_type"])
+    copywriting_expert = Agent(__copywriting_expert['name'], __copywriting_expert["background_story"], __copywriting_expert["query"] + topic_expert, __copywriting_expert["tips"], 'You can include any of these topics for the contents of the paragraph' + writing_format + __copywriting_expert["output_type"])
 
     #Results
     print(f'\033[94m{copywriting_expert}\033[94m')
-    print("Completed!!!")
     
 if __name__ == "__main__":
     main()

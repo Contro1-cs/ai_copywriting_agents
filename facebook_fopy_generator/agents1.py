@@ -1,16 +1,14 @@
 import requests
 
-
-
-def Agent(name, backstory, query, tips, expected_results):
-    print(f'{name} is Working...')
+def Agent1(name, query, expected_results):
+    print(f'\033[0m{name} is Working...\033[0m')
     # Define the request payload
     payload = {
         "contents": [
             {
                 "parts": [
                     {
-                        "text": f"Backstory: {backstory}\n\nPrompt: {query}\n\nTips: {tips}\n\nExpected output: {expected_results}",
+                        "text": f"Query:{query}\n\nExpected output: {expected_results}",
                     }
                 ],
             }
@@ -23,7 +21,7 @@ def Agent(name, backstory, query, tips, expected_results):
     }
 
     # Define the API endpoint
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={API_KEY}"
 
     # Make the POST request
     response = requests.post(url, json=payload, headers=headers)
