@@ -15,11 +15,13 @@ def Agent(name, backstory, query, tips, expected_results):
         ]
     }
 
+    # Define the headers
     headers = {
         "Content-Type": "application/json"
     }
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={API_KEY}"
+    # Define the API endpoint
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyBdUzwBDPozaAmnw8P6uku2QlkoVeXCpWA"
 
     # Make the POST request
     response = requests.post(url, json=payload, headers=headers)
