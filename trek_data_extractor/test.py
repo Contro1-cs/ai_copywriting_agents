@@ -1,26 +1,21 @@
 from selenium import webdriver
 from bs4 import BeautifulSoup
 
-# Set up the Selenium webdriver
 driver = webdriver.Chrome()
-
-# URL of the website
 url = "https://indiahikes.com/chandrakhani-pass-trek#quick-itinerary"
-
 driver.get(url)
-
-# Get the page source after the JavaScript has executed
 page_source = driver.page_source
-
-# Parse the HTML content using BeautifulSoup
 soup = BeautifulSoup(page_source, "html.parser")
 
-# Find the div with class "card TrekInfoOverview_feeCard___Ruu6"
-div = soup.find("div", class_="FeeDetails_feeOptions__XVibQ")
 
-# Extract the contents of the div
-contents = div
-fees = contents.find("div", class_="mx-2").p.text
 
-# Close the Selenium webdriver
+how_to_reach = soup.find_all("div", class_="d-flex align-items-start flex-wrap mt-1")
+content = how_to_reach[0].find("div", class_="p-text-small text-dark mb-2").p
+
+location = content.find("a").text
+google_maps_link = content.find("a")["href"]
+
+print("Location:", location)
+print("Google Maps Link:", google_maps_link)
+
 driver.quit()

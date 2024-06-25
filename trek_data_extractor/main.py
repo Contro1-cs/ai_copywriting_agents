@@ -26,7 +26,16 @@ photos = soup.find("div", class_="highlightedSnippet_highlightedSnippet__XAvlw")
 #fees
 fees_div = soup.find("div", class_="FeeDetails_feeOptions__XVibQ")
 contents = fees_div
-fees = contents.find("div", class_="mx-2").p.text
+fees = int(contents.find("div", class_="mx-2").p.text.replace(",", ""))
+fees += fees * 0.05
+
+#pickup location 
+how_to_reach = soup.find_all("div", class_="d-flex align-items-start flex-wrap mt-1")
+content = how_to_reach[0].find("div", class_="p-text-small text-dark mb-2").p
+
+location = content.find("a").text
+google_maps_link = content.find("a")["href"]
+
 trek_data = {
     "url": url,
     "title": title,
@@ -34,6 +43,8 @@ trek_data = {
     "difficulty": difficulty,
     "duration": duration,
     "photos": photos,
+    "location": location,
+    "google_maps_link": google_maps_link,
 }
 
 print(trek_data)
